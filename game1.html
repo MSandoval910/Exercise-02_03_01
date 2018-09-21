@@ -1,0 +1,188 @@
+<!doctype html>
+
+<html>
+	<head>
+		<title>Page Title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0">
+		 <link rel="stylesheet" type="text/css" href="game2.css">
+		 <script src="game1.js"></script>
+	</head>
+
+	<body>
+<div class="container jumbotron" id=mainGame>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="btn-group" id=topMenu>
+        <button class="btn btn-danger" onclick="nextWave();" id=nextWaveBtn>Next wave</button>
+        <button class="btn btn-info" onclick='chooseSpeed(0,this);'>Pause</button>
+        <button class="btn btn-success" onclick='chooseSpeed(1,this);' data-fromLevel=1>x1 speed</button>
+        <button class="btn btn-default" onclick='chooseSpeed(2,this);' data-fromLevel=3>x2 speed</button>
+        <button class="btn btn-default" onclick='chooseSpeed(3,this);' data-fromLevel=5>x3 speed</button>
+        <button class="btn btn-warning" onclick='quitGame();'>Quit game</button>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" id=levelbar style="width: 50%;"></div>
+      </div>
+      <canvas id=canvas width=800 height=300></canvas>
+    </div>
+    <div class="col-md-3">
+      <div id="money"></div>
+      <hr>
+      <div id=shopContainer>
+        <button class="btn btn-default" onclick='buy("homing");' id=homingBtn>Buy 25 homing bullets.<br>(£10)</button><br>
+        <button class="btn btn-default" onclick='buy("xp");' id=xpBtn>Buy 1 xp<br>(£1 and <b>wave >= 10</b>)</button><br>
+        <button class="btn btn-default" onclick='buy("life");' id=lifeBtn>Buy 1♥<br>(£100)</button>
+      </div>
+      <hr>
+      <input class="inputStyle" placeholder="Search towers..." id=searchInput disabled>
+      <hr>
+      <div id="allTurretContainer">
+        <div class="turretContainer">
+          <p>Bomb</p>
+          <div class="turret bombTurret" data-name=bomb></div>
+          <div style="clear:both;"></div>
+          <span class="badge badge-default">£10</span>
+          <div>Put on track and watch enemies explode!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="box">
+  <div id="boxHeader"></div>
+  <hr>
+  <div id="boxhtml"></div>
+</div>
+<div id="mainMenu" class="jumbotron container text-center">
+  <h2>Tower Defence 2</h2>
+  <hr>
+  <label for="difficulty" class="badge badge-danger">Difficulty</label>
+  <select id="difficulty" class="form-control" style="width: 250px; margin: 0 auto;">
+    <option value="0.5">Very easy</option>
+    <option value="0.75">Easy</option>
+    <option value="1">Normal</option>
+    <option value="1.2">Hard</option>
+    <option value="1.5">Very hard</option>
+    <option value="2">Impossible</option>
+  </select>
+  <p class="text-center">Higher difficulty, gives more xp. Increases exponentially.</p>
+  <label for="" class="badge badge-danger">Gamemode</label>
+  <select id="" class="form-control" style="width: 250px; margin: 0 auto;">
+    <option value="">Normal</option>
+    <option value="">Player vs AI</option>
+  </select>
+  <br>
+  <button class="btn btn-success" onclick="mapSelection();">New game</button>
+  <button class="btn btn-primary" id=continueBtn onclick="continueGame();">Continue on wave 1</button>
+  <br>
+  <button class="btn btn-info" id=toggleEnemyInfo>Show enemy information</button>
+  <hr>
+  <div id="enemyInfo">
+    <div class="container">
+      <div class="progress" style="background-color: black;">
+        <div class="progress-bar" style="background-color: red; width: 90%">This is health bar</div>
+      </div>
+      <p>You need to get it to 0 to kill enemy.</p>
+      <br>
+      <div class="progress" style="background-color: black;">
+        <div class="progress-bar" style="background-color: lime; width: 90%">This is overheal bar</div>
+      </div>
+      <p>You need to get overheal to 0 to deal damage to health.</p>
+      <br>
+      <div class="progress" style="background-color: black;">
+        <div class="progress-bar" style="background-color: grey; width: 90%">This is armor bar</div>
+      </div>
+      <p>Armor protects from damage, you need to destroy it to deal damage to health.</p>
+      <hr>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron container text-center" id=mapContainer>
+  <div class="container" id=mapSelection>
+    <p>Easy maps</p>
+    <div class="row">
+      <div class="col-md-4">
+        <img src="https://i.gyazo.com/1c87241285a7574284b0b09a915e0490.png" data-mapName=map3 class="active">
+        <p>Mistburn</p>
+        <span id=map3Highscore class="badge badge-danger"></span>
+      </div>
+      <div class="col-md-4">
+        <img src="https://i.gyazo.com/0ad8a801ef68ce1b9848556075121bc7.png" data-mapName=map4>
+        <p>Closed box</p>
+        <span id=map4Highscore class="badge badge-danger"></span>
+      </div>
+    </div>
+    
+    <hr>
+    <p>Medium maps</p>
+    <div class="row">
+      <div class="col-md-4">
+        <img src="https://i.gyazo.com/0b781443eee24570cfab345f5ff9873c.png" data-mapName=map1>
+        <p>Lorfort</p>
+        <span id=map1Highscore class="badge badge-danger"></span>
+      </div>
+      <div class="col-md-4">
+        <img src="https://i.gyazo.com/306ba2b106ebe7b87681b03dea6d7dce.png" data-mapName=map5>
+        <p>Spiral</p>
+        <span id="map5Highscore" class="badge badge-danger"></span>
+      </div>
+    </div>
+    
+    <hr>
+    <p>Hard maps</p>
+    <div class="row">
+      <div class="col-md-4">
+        <img src="https://i.gyazo.com/4bd89d84090c0155cf6e6a9d09cd44fc.png" data-mapName=map2>
+        <p>Glassbell</p>
+        <span id=map2Highscore class="badge badge-danger"></span>
+      </div>
+      <div class="col-md-4">
+        <img src="https://i.gyazo.com/655a716824c975d3e1bf97b8d2f8ebb8.png" data-mapName=map6>
+        <p>Straight to victory</p>
+        <span id=map6Highscore class="badge badge-danger"></span>
+      </div>
+    </div>
+    
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-4 mission" onclick='selectMission("mission1");' id=mission1>
+      <p>Mission 1</p>
+      <p>Defend against attackers, starting with sniper.</p>
+      <div class="difficulty">
+        <div class="circle easy"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+      <p>Reward: 500xp</p>
+    </div>
+    <div class="col-md-4 mission" onclick='selectMission("mission2");' id=mission2>
+      <p>Mission 2</p>
+      <p>Start with £1000 and defend against 10 bosses!</p>
+      <div class="difficulty">
+        <div class="circle hard"></div>
+        <div class="circle hard"></div>
+        <div class="circle hard"></div>
+        <div class="circle"></div>
+      </div>
+      <p>Reward: 5000xp</p>
+    </div>
+    <div class="col-md-4 mission" onclick='selectMission("mission3");' id=mission3>
+      <p>Mission 3</p>
+      <p>£25 000 vs final boss.</p>
+      <div class="difficulty">
+        <div class="circle vHard"></div>
+        <div class="circle vHard"></div>
+        <div class="circle vHard"></div>
+        <div class="circle vHard"></div>
+      </div>
+      <p>Reward: 25000xp</p>
+    </div>
+  </div>
+  <button class="btn btn-success" onclick="startGame();">Start game</button>
+</div>
+	</body>
+</html>

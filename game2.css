@@ -1,0 +1,175 @@
+* {
+  user-select: none;
+  font-family: 'Indie flower', cursive;
+}
+canvas {
+  width: 100%;
+  height: auto;
+}
+.jumbotron {
+  border: 2px solid black;
+}
+.turret {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  transition: all 0.4s;
+  float: left;
+  opacity: 0.1;
+  margin: 2px;
+}
+.info {
+  clear: both;
+}
+.turretContainer p {
+  clear: both;
+  text-decoration: underline;
+  color: blue;
+  font-weight: 900;
+  text-transform: capitalize;
+}
+#allTurretContainer {
+  overflow: auto;
+  height: 500px;
+}
+::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+#box {
+  position: absolute;
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 5px;
+  z-index: 999;
+  padding: 10px;
+  cursor: move;
+  text-align: center;
+}
+#boxHeader {
+  text-align: center;
+  font-weight: 900;
+}
+#money {
+  text-decoration: underline;
+  font-size: 36px;
+  font-weight: 900;
+  text-align: center;
+  color: green;
+}
+.progress {
+  box-shadow: inset -3px -3px 100px -5px #ABABAB,2px 2px 49px 2px #DDDDDD;
+  white-space: nowrap;
+}
+.progress-bar {
+  transition: all 0.4s ease-in-out;
+  color: black;
+  font-weight: 900;
+}
+.enemy {
+  width: 25px;
+  height: 25px;
+  margin: 0 auto;
+  border: 2px solid black;
+}
+#enemyInfo .box {
+  width: 100%;
+}
+#enemyInfo hr {
+  border: 1px solid black;
+}
+#mapSelection img {
+  width: 266px;
+  height: 100px;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+#mapSelection img:hover {
+  box-shadow: 1px 1px 10px black;
+}
+#mapSelection img.active {
+  border-radius: 10px;
+  box-shadow: 2px 2px 25px black;
+}
+#enemyInfo span{
+  color: black;
+  font-size: 13px;
+  font-weight: 700;
+  max-width: 200px;
+  white-space: initial;
+}
+#enemyInfo p {
+  text-transform: capitalize;
+}
+.bombTurret {
+  background-color: grey;
+  border-radius: 100%;
+}
+.inputStyle {
+  padding: 10px;
+  text-align: center;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid black;
+  background-color: inherit;
+}
+.mission {
+  border: 2px solid black;
+  border-radius: 10px;
+  background: linear-gradient(#eef2f3,#8e9eab);
+}
+.difficulty {
+  float: left;
+}
+.mission:hover {
+  background: linear-gradient(#eef5f7,#aedeab);
+  cursor: pointer;
+}
+.circle {
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  border-radius: 50%;
+  float: left;
+  margin: 1px;
+}
+.easy {
+  background-color: lime;
+}
+.medium {
+  background-color: orange;
+}
+.hard {
+  background-color: red;
+}
+.vHard {
+  background-color: black;
+}
+#shopContainer button {
+  border-radius: 0;
+  margin-top: 4px;
+  border: 2px solid black;
+  width: calc(100% - 50px);
+  cursor: pointer;
+  background-color: #4AF430;
+}
+#shopContainer button:disabled {
+  background-color: lightgray;
+}
+#shopContainer {
+  text-align: center;
+}
+/* .container, .jumbotron {
+  padding: 10px;
